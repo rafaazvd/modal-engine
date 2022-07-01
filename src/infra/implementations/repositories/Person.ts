@@ -15,13 +15,13 @@ export class PersonRepository implements IPersonRepository {
     return this.instance
   }
 
-  async findOneByEmail(email: string): Promise<IPerson | null> {
-    const person = await Person.findOne({email})
+  async findOneByCpf(cpf: string): Promise<IPerson | null> {
+    const person = await Person.findOne({cpf})
     return person ? person : null
   }
 
   async findOneById(id: string): Promise<IPerson | null> {
-    const person = await Person.findById(id)
+    const person = await Person.findById(id, {password: 0})
     return person ? person : null
   }
 
@@ -35,12 +35,12 @@ export class PersonRepository implements IPersonRepository {
       id,
       data,
     )
-    const person = await Person.findById(id)
+    const person = await Person.findById(id, {password: 0})
     return person ? person : null
   }
 
   async list(): Promise<IPerson[]> {
-    const people = await Person.find({})
+    const people = await Person.find({}, {password: 0})
     return people
   }
 }

@@ -2,7 +2,7 @@ import { Route } from '../fastify/Route'
 import { adaptRoute } from '../fastify/fastifyRouteAdapter'
 
 import { CreateAccountController } from '@modules/Account/useCases/createAccount/CreatePersonController'
-import { UpdatePersonController } from '@modules/Account/useCases/updatePerson/updatePersonController'
+import { UpdatePersonController } from '@modules/Account/useCases/updateAccount/updateAccountController'
 import { ListAccountController } from '@modules/Account/useCases/listAccounts/ListAccountController'
 import { ListAccountByIdController } from '@modules/Account/useCases/listAccountById/ListAccountController'
 import { AuthAccountController } from '@modules/Account/useCases/authAccount/authAccountController'

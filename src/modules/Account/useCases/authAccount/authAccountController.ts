@@ -31,8 +31,10 @@ export class AuthAccountController implements Controller {
         email,
         password,
       })
-
-      return success(result)
+      if (result.id) {
+        return success(result)
+      }
+      return clientError(result.name)
     } catch (err) {
       console.log(err)
 

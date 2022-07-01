@@ -4,13 +4,12 @@ import { IAccount } from '@modules/Account/dataModels/IAccount'
 import { IAccountRepository } from '@modules/Account/repositories/IAccountRepository'
 import { PersonAlreadyHasAnAccount } from './errors/PersonAlreadyHasAnAccount'
 import isValidEmail from './utils/isValidEmail'
-import { validateUUID } from './errors/validateUUID'
 
 type CreateAccountEntry = {
   personId: string
   email: string
   password: string
-  balance: number
+  balance?: number
 }
 
 type CreateAccountReturn = PersonAlreadyHasAnAccount | InvalidEntryError | IAccount
@@ -36,7 +35,10 @@ export class CreateAccount {
     }
 
     const accountExists = await this.accountRepository.findByPersonId(personId)
-
+    const accountEmailExists = await this.accountRepository.findOneByEmail(email)
+    if (accountEmailExists) {
+      return new PersonAlreadyHasAnAccount()
+    }
     if (accountExists) {
       return new PersonAlreadyHasAnAccount()
     }
@@ -65,8 +67,8 @@ export class CreateAccount {
       )
     }
 
-    if (!personId || !validateUUID(personId)) {
-      return '"personId" is a non-empty required string uuid'
+    if (!personId || typeof personId !== 'string') {
+      return '"personId" is a non-empty required string'
     }
 
     if (
@@ -78,11 +80,11 @@ export class CreateAccount {
     }
 
     if (
-      !balance ||
-      typeof balance !== 'number' ||
-      balance < 0
+      balance &&
+      (typeof balance !== 'number' ||
+      balance < 0)
     ) {
-      return '"balance" is a non-empty required number positive'
+      return '"balance" is a non-empty number positive'
     }
 
     return null

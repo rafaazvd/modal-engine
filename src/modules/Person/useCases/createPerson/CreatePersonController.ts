@@ -24,23 +24,21 @@ export class CreatePersonController implements Controller {
     const {
       name,
       cpf,
-      email,
       birthDate,
-      password,
      } = body
 
     try {
       const result = await createPerson.run({
         name,
         cpf,
-        email,
         birthDate,
-        password,
       })
 
-      console.log({result})
+      if (result._id) {
+        return success(result)
+      }
 
-      return success(result)
+      return clientError(result.name)
     } catch (err) {
       console.log(err)
 

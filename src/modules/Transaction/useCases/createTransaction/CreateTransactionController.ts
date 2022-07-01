@@ -6,13 +6,17 @@ import {
   HttpResponse,
 } from '@infra/http/helpers/httpResponse'
 
-import { CreateAccount } from './CreateAccount'
+import { CreateTransaction } from './CreateTransaction'
+import { TransactionRepository } from '@infra/implementations/repositories/Transactions'
 import { AccountRepository } from '@infra/implementations/repositories/Account'
 
-const createAccount = new CreateAccount(AccountRepository.getSingleton())
+const createTransaction = new CreateTransaction(
+    TransactionRepository.getSingleton(),
+    AccountRepository.getSingleton(),
+  )
 
-export class CreateAccountController implements Controller {
-  private static instance = new CreateAccountController()
+export class CreateTransactionController implements Controller {
+  private static instance = new CreateTransactionController()
 
   private constructor() {}
 
@@ -22,18 +26,16 @@ export class CreateAccountController implements Controller {
 
   async handle({ body }: ControllerRequest): Promise<HttpResponse> {
     const {
-      email,
-      password,
-      balance,
-      personId,
+      receiverAccount,
+      senderAccount,
+      value,
      } = body
 
     try {
-      const result = await createAccount.run({
-        email,
-        password,
-        balance,
-        personId,
+      const result = await createTransaction.run({
+        receiverAccount,
+        senderAccount,
+        value,
       })
      if (result.id) {
       return success(result)

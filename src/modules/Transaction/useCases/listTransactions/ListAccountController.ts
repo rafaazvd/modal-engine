@@ -1,13 +1,13 @@
 import { Controller, ControllerRequest } from '@infra/http/helpers/Controller'
 import { success, fail, HttpResponse } from '@infra/http/helpers/httpResponse'
 
-import { ListPerson } from './ListPerson'
-import { PersonRepository } from '@infra/implementations/repositories/Person'
+import { ListTransaction } from './ListTransaction'
+import { TransactionRepository } from '@infra/implementations/repositories/Transactions'
 
-const listPerson = new ListPerson(PersonRepository.getSingleton())
+const listTransaction = new ListTransaction(TransactionRepository.getSingleton())
 
-export class ListPersonController implements Controller {
-  private static instance = new ListPersonController()
+export class ListTransactionController implements Controller {
+  private static instance = new ListTransactionController()
 
   private constructor() {}
 
@@ -17,11 +17,10 @@ export class ListPersonController implements Controller {
 
   async handle(request: ControllerRequest): Promise<HttpResponse> {
     try {
-      const result = await listPerson.run()
+      const result = await listTransaction.run()
       return success(result)
     } catch (err) {
       console.log(err)
-
       return fail()
     }
   }

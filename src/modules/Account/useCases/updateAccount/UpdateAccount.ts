@@ -1,9 +1,7 @@
-import { hash } from 'bcrypt'
 import { InvalidEntryError } from './errors/InvalidEntryError'
 import { IAccount } from '@modules/Account/dataModels/IAccount'
 import { IAccountRepository } from '@modules/Account/repositories/IAccountRepository'
 import { AccountDoesNotExist } from './errors/AccountDoesNotExist'
-import { validateUUID } from './errors/validateUUID'
 
 type UpdateAccountEntry = {
   id: string
@@ -43,11 +41,9 @@ export class UpdateAccount {
     balance,
     id,
   }: UpdateAccountEntry): string | null {
-
-    if (!id || !validateUUID(id)) {
-      return '"id" is a non-empty required string uuid'
+    if (!id || typeof id !== 'string') {
+      return '"id" is a non-empty required string'
     }
-
     if (
       !balance ||
       typeof balance !== 'number' ||

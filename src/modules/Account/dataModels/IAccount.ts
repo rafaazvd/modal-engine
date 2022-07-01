@@ -4,6 +4,6 @@ export interface IAccount {
   personId: IPerson
   email: string
   password: string
-  balance: number
+  balance?: number
   createdAt: Date
 }

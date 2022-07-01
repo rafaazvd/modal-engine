@@ -19,7 +19,10 @@ export class ListAccountByIdController implements Controller {
     try {
       const { id } = query
       const result = await listAccount.run(id)
-      return success(result)
+      if (result) {
+        return success(result)
+      }
+      return fail()
     } catch (err) {
       console.log(err)
 

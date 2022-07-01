@@ -4,7 +4,6 @@ import { Controller } from '../helpers/Controller'
 
 export function adaptRoute(controller: Controller) {
   return async (request: any, reply: FastifyReply) => {
-    let body = {}
     let files = {}
     try {
       const existFiles = await request.file()

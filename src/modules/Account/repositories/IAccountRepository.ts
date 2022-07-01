@@ -4,7 +4,7 @@ type SaveAccountRepositoryData = {
   personId: string
   email: string
   password: string
-  balance: number
+  balance?: number
 }
 
 type UpdateAccountRepositoryData = {

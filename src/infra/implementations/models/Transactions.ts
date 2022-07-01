@@ -1,29 +1,20 @@
 import { Schema, model } from 'mongoose'
-import { IAccount } from '@modules/Account/dataModels/IAccount'
+import { ITransaction } from '@modules/Transaction/dataModels/ITransaction'
 
 
-const accountSchema = new Schema<IAccount>(
+const transactionSchema = new Schema<ITransaction>(
   {
-    personId: {
-      type: Schema.Types.ObjectId,
-      ref: 'Person',
-      required: true,
-    },
-    accountId: {
+    receiverAccount: {
       type: Schema.Types.ObjectId,
       ref: 'Account',
       required: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
+    senderAccount: {
+      type: Schema.Types.ObjectId,
+      ref: 'Account',
       required: true,
     },
-    balance: {
+    value: {
       type: Number,
       required: true,
     },
@@ -36,6 +27,6 @@ const accountSchema = new Schema<IAccount>(
   { versionKey: false, id: true }
 )
 
-const Account = model<IAccount>('Account', accountSchema, 'account')
+const Transaction = model<ITransaction>('Transaction', transactionSchema, 'transaction')
 
-export { Account, IAccount }
+export { Transaction, ITransaction }

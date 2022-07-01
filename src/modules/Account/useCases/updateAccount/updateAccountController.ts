@@ -3,6 +3,7 @@ import {
   success,
   fail,
   HttpResponse,
+  clientError,
 } from '@infra/http/helpers/httpResponse'
 
 import { UpdateAccount } from './UpdateAccount'
@@ -33,7 +34,11 @@ export class UpdatePersonController implements Controller {
         balance,
       })
 
-      return success(result)
+      if (result.email) {
+        return success(result)
+      }
+
+      return clientError(result.name)
     } catch (err) {
       console.log(err)
 

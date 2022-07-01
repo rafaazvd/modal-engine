@@ -13,11 +13,6 @@ const personSchema = new Schema<IPerson>(
       required: true,
       unique: true,
     },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     birthDate: {
       type: String,
       required: true,
@@ -25,10 +20,6 @@ const personSchema = new Schema<IPerson>(
     documentMedia: {
       type: String,
       required: false,
-    },
-    password: {
-      type: String,
-      required: true,
     },
     createdAt: {
       type: Date,

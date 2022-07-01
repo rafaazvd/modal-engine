@@ -29,12 +29,12 @@ export class AuthAccount {
       return new InvalidEntryError(invalidEntry)
     }
 
-    const personExists = await this.accountRepository.findOneByEmail(email)
+    const account = await this.accountRepository.findOneByEmail(email)
 
-    if (!personExists) {
+    if (!account) {
       return new PersonDoesNotExist(email)
     }
-    const passwordsMatch = await compare(password, personExists.password)
+    const passwordsMatch = await compare(password, account.password)
 
     if (!passwordsMatch) {
       return new PasswordDoesNotMatch()
@@ -42,15 +42,16 @@ export class AuthAccount {
 
     const userJwt = jwt.sign(
       {
-        email: personExists.email,
+        email: account.email,
       },
       process.env.JWT_KEY!
     )
 
-    delete personExists.password
-
     return {
-      ...personExists,
+      email: account.email,
+      id: account.id,
+      personId: account.personId,
+      balance: account.balance,
       accessToken: userJwt,
     }
   }

@@ -1,11 +1,11 @@
 import { compileRoutes } from '../fastify/compileRoutes'
 
-import { testRoute } from './test.routes'
 import { personRoutes } from './person.routes'
+import { accountRoutes } from './account.routes'
 
 const routes = compileRoutes([
-  testRoute,
   personRoutes,
+  accountRoutes,
 ])
 
 export { routes }
