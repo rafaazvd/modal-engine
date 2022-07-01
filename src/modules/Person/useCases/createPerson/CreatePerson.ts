@@ -1,7 +1,7 @@
+import { hash } from 'bcrypt'
 import { InvalidEntryError } from './errors/InvalidEntryError'
 import { IPerson } from '@modules/Person/dataModels/IPerson'
 import { IPersonRepository } from '@modules/Person/repositories/IPersonRepository'
-
 import { PersonCpfAlreadyExists } from './errors/PersonCpfAlreadyExists'
 import { PersonEmailAlreadyExists } from './errors/PersonEmailAlreadyExists'
 import isValidEmail from './utils/isValidEmail'
@@ -12,7 +12,7 @@ type CreatePersonEntry = {
   cpf: string
   email: string
   birthDate: string
-  documentMedia?: any
+  files?: any
   password: string
 }
 
@@ -26,7 +26,6 @@ export class CreatePerson {
     cpf,
     email,
     birthDate,
-    documentMedia,
     password,
   }: CreatePersonEntry): Promise<CreatePersonReturn> {
     const invalidEntry = this.validate({
@@ -47,14 +46,23 @@ export class CreatePerson {
       return new PersonEmailAlreadyExists(email)
     }
 
+    const passwordHashed = await hash(password, 10)
+    console.log({
+      name: name.trim(),
+      cpf: cpf.trim(),
+      email: email.trim(),
+      birthDate: birthDate.trim(),
+      password: passwordHashed,
+    })
     const person = await this.personRepository.save({
       name: name.trim(),
       cpf: cpf.trim(),
       email: email.trim(),
       birthDate: birthDate.trim(),
-      documentMedia: documentMedia.trim(),
-      password: password.trim(),
+      password: passwordHashed,
     })
+
+    console.log({person})
 
     return person
   }

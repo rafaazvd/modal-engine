@@ -6,13 +6,13 @@ import {
   HttpResponse,
 } from '@infra/http/helpers/httpResponse'
 
-import { CreatePerson } from './CreatePerson'
+import { AuthPerson } from './authPerson'
 import { PersonRepository } from '@infra/implementations/repositories/Person'
 
-const createPerson = new CreatePerson(PersonRepository.getSingleton())
+const authPerson = new AuthPerson(PersonRepository.getSingleton())
 
-export class CreatePersonController implements Controller {
-  private static instance = new CreatePersonController()
+export class AuthPersonController implements Controller {
+  private static instance = new AuthPersonController()
 
   private constructor() {}
 
@@ -22,23 +22,15 @@ export class CreatePersonController implements Controller {
 
   async handle({ body }: ControllerRequest): Promise<HttpResponse> {
     const {
-      name,
-      cpf,
       email,
-      birthDate,
       password,
      } = body
 
     try {
-      const result = await createPerson.run({
-        name,
-        cpf,
+      const result = await authPerson.run({
         email,
-        birthDate,
         password,
       })
-
-      console.log({result})
 
       return success(result)
     } catch (err) {

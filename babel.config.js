@@ -7,7 +7,8 @@ module.exports = {
     ['module-resolver', {
       alias: {
         '@infra': './src/infra',
-        '@modules': './src/modules'
+        '@modules': './src/modules',
+        '@firebase': './src/firebase'
       }
     }]
   ]

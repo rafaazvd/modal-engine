@@ -6,13 +6,13 @@ import {
   HttpResponse,
 } from '@infra/http/helpers/httpResponse'
 
-import { CreatePerson } from './CreatePerson'
+import { UpdatePerson } from './UpdatePerson'
 import { PersonRepository } from '@infra/implementations/repositories/Person'
 
-const createPerson = new CreatePerson(PersonRepository.getSingleton())
+const updatePerson = new UpdatePerson(PersonRepository.getSingleton())
 
-export class CreatePersonController implements Controller {
-  private static instance = new CreatePersonController()
+export class UpdatePersonController implements Controller {
+  private static instance = new UpdatePersonController()
 
   private constructor() {}
 
@@ -20,25 +20,26 @@ export class CreatePersonController implements Controller {
     return this.instance
   }
 
-  async handle({ body }: ControllerRequest): Promise<HttpResponse> {
+  async handle({ body, files, query }: ControllerRequest): Promise<HttpResponse> {
     const {
       name,
-      cpf,
       email,
       birthDate,
       password,
      } = body
+     const {
+      id,
+     } = query
 
     try {
-      const result = await createPerson.run({
+      const result = await updatePerson.run({
+        id,
         name,
-        cpf,
         email,
         birthDate,
+        files,
         password,
       })
-
-      console.log({result})
 
       return success(result)
     } catch (err) {

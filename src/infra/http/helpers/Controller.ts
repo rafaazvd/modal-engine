@@ -4,6 +4,7 @@ export type ControllerRequest = {
   params: any
   query: any
   body: any
+  files?: any
   headers: any
   flow: any
 }
