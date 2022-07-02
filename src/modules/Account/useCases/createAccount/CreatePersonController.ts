@@ -8,8 +8,12 @@ import {
 
 import { CreateAccount } from './CreateAccount'
 import { AccountRepository } from '@infra/implementations/repositories/Account'
+import { PersonRepository } from '@infra/implementations/repositories/Person'
 
-const createAccount = new CreateAccount(AccountRepository.getSingleton())
+const createAccount = new CreateAccount(
+  AccountRepository.getSingleton(),
+  PersonRepository.getSingleton(),
+  )
 
 export class CreateAccountController implements Controller {
   private static instance = new CreateAccountController()

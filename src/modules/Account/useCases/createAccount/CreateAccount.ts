@@ -2,7 +2,9 @@ import { hash } from 'bcrypt'
 import { InvalidEntryError } from './errors/InvalidEntryError'
 import { IAccount } from '@modules/Account/dataModels/IAccount'
 import { IAccountRepository } from '@modules/Account/repositories/IAccountRepository'
+import { IPersonRepository } from '@modules/Person/repositories/IPersonRepository'
 import { PersonAlreadyHasAnAccount } from './errors/PersonAlreadyHasAnAccount'
+import { PersonDoesNotExist } from './errors/PersonDoesNotExist'
 import isValidEmail from './utils/isValidEmail'
 
 type CreateAccountEntry = {
@@ -15,7 +17,10 @@ type CreateAccountEntry = {
 type CreateAccountReturn = PersonAlreadyHasAnAccount | InvalidEntryError | IAccount
 
 export class CreateAccount {
-  constructor(private readonly accountRepository: IAccountRepository) {}
+  constructor(
+    private readonly accountRepository: IAccountRepository,
+    private readonly personRepository: IPersonRepository,
+    ) {}
 
   async run({
     email,
@@ -34,6 +39,10 @@ export class CreateAccount {
       return new InvalidEntryError(invalidEntry)
     }
 
+    const personExists = await this.personRepository.findOneById(personId)
+    if (!personExists) {
+      return new PersonDoesNotExist(personId)
+    }
     const accountExists = await this.accountRepository.findByPersonId(personId)
     const accountEmailExists = await this.accountRepository.findOneByEmail(email)
     if (accountEmailExists) {

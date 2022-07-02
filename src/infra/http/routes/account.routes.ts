@@ -8,7 +8,28 @@ import { ListAccountByIdController } from '@modules/Account/useCases/listAccount
 import { AuthAccountController } from '@modules/Account/useCases/authAccount/authAccountController'
 
 const accountRoutes = new Route('account')
-
+//apidoc -i ./src/infra/http/routes -o src/apidoc
+/**
+ * @api {post} /account Create Account
+ * @apiGroup Account
+ *
+ * @apiParam {String} personId Person unique ID.
+ * @apiParam {String} email email to login
+ * @apiParam {String} password password to login
+ * @apiParam {Number} balance initial account value
+ *
+ * @apiSuccess {json} account create a personal account
+ *
+ * @apiSuccessExample {json} Sucesso
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "id": {string},
+        "personId": {string},
+        "email": {string},
+        "balance": {number}
+ *    }
+ *
+ */
 accountRoutes.createRoute({
   method: 'POST',
   url: '/',
