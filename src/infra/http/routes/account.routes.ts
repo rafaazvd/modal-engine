@@ -63,10 +63,11 @@ accountRoutes.createRoute({
 })
 
 /**
- * @api {put} /account Create Account
+ * @api {put} /account Update Account
  * @apiGroup Account
  *
  * @apiParam {String} id Account ID.
+ * @apiParam {Number} balance new balance.
  *
  * @apiSuccess {Number} balance current account value
  *

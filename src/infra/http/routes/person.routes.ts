@@ -8,18 +8,78 @@ import { ListPersonByIdController } from '@modules/Person/useCases/listById/List
 
 const personRoutes = new Route('person')
 
+/**
+ * @api {post} /person Create Person
+ * @apiGroup Person
+ *
+ * @apiParam {String} name Name.
+ * @apiParam {String} cpf Cpf unique.
+ * @apiParam {String} birthDate birth date.
+ *
+ *
+ * @apiSuccess {object} Person update
+ *
+ * @apiSuccessExample {object} Sucesso
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "id": {string},
+        "name": {string},
+        "birthDate": {string},
+        "cpf": {string}
+ *    }
+ *
+ */
 personRoutes.createRoute({
   method: 'POST',
   url: '/',
   handler: adaptRoute(CreatePersonController.getSingleton()),
 })
 
+/**
+ * @api {put} /person Update Person
+ * @apiGroup Person
+ *
+ * @apiParam {String} id Person ID.
+ * @apiParam {String} name Name (Optional).
+ * @apiParam {multipart} docs files type image (Optional).
+ *
+ *
+ * @apiSuccess {object} Person update
+ *
+ * @apiSuccessExample {object} Sucesso
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "id": {string},
+        "name": {string},
+        "birthDate": {string},
+        "cpf": {string}
+ *    }
+ *
+ */
 personRoutes.createRoute({
   method: 'PUT',
   url: '/',
   handler: adaptRoute(UpdatePersonController.getSingleton()),
 })
 
+
+/**
+ * @api {get} /person List Person
+ * @apiGroup Person
+ *
+ *
+ * @apiSuccess {array} Person list of Person
+ *
+ * @apiSuccessExample {array} Sucesso
+ *    HTTP/1.1 200 OK
+ *    [{
+ *      "id": {string},
+        "name": {string},
+        "birthDate": {string},
+        "cpf": {string}
+ *    }]
+ *
+ */
 personRoutes.createRoute({
   method: 'GET',
   url: '/',
@@ -28,19 +88,19 @@ personRoutes.createRoute({
 
 /**
  * @api {get} /person/details Person details
- * @apiGroup Account
+ * @apiGroup Person
  *
- * @apiParam {String} id Account ID.
+ * @apiParam {String} id Person ID.
  *
- * @apiSuccess {object} transactions details of transactions
+ * @apiSuccess {object} Person details of Person
  *
  * @apiSuccessExample {object} Sucesso
  *    HTTP/1.1 200 OK
  *    {
  *      "id": {string},
-        "personId": {string},
-        "email": {string},
-        "balance": {number}
+        "name": {string},
+        "birthDate": {string},
+        "cpf": {string}
  *    }
  *
  */

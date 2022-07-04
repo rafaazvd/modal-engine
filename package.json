@@ -6,6 +6,15 @@
   "scripts": {
     "dev": "tsnd -r tsconfig-paths/register -r dotenv/config --respawn --transpile-only --ignore-watch node_modules --exit-child src/infra/http/server.ts"
   },
+  "apidoc": {
+    "name": "modal-engine",
+    "version": "0.1.0",
+    "description": "apiDoc modal bank",
+    "apidoc": {
+      "title": "modal api",
+      "url" : ""
+    }
+  },
   "dependencies": {
     "@fastify/multipart": "6.0.0",
     "apidoc": "^0.51.1",

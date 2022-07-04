@@ -6,7 +6,7 @@ import { ListTransactionController } from '@modules/Transaction/useCases/listTra
 const p2pRoutes = new Route('p2p')
 
 /**
- * @api {post} /p2p Create Account
+ * @api {post} /p2p Create Transaction
  * @apiGroup Transaction
  *
  * @apiParam {String} senderAccount Sender account id
@@ -33,7 +33,7 @@ p2pRoutes.createRoute({
 
 /**
  * @api {get} /p2p List transactions
- * @apiGroup Transation
+ * @apiGroup Transaction
  *
  * @apiSuccess {Array} accounts array of transactions
  *
