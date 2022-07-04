@@ -26,6 +26,24 @@ personRoutes.createRoute({
   handler: adaptRoute(ListPersonController.getSingleton()),
 })
 
+/**
+ * @api {get} /person/details Person details
+ * @apiGroup Account
+ *
+ * @apiParam {String} id Account ID.
+ *
+ * @apiSuccess {object} transactions details of transactions
+ *
+ * @apiSuccessExample {object} Sucesso
+ *    HTTP/1.1 200 OK
+ *    {
+ *      "id": {string},
+        "personId": {string},
+        "email": {string},
+        "balance": {number}
+ *    }
+ *
+ */
 personRoutes.createRoute({
   method: 'GET',
   url: '/details',

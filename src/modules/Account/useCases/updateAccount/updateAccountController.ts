@@ -9,10 +9,10 @@ import {
 import { UpdateAccount } from './UpdateAccount'
 import { AccountRepository } from '@infra/implementations/repositories/Account'
 
-const updatePerson = new UpdateAccount(AccountRepository.getSingleton())
+const updateAccount = new UpdateAccount(AccountRepository.getSingleton())
 
-export class UpdatePersonController implements Controller {
-  private static instance = new UpdatePersonController()
+export class UpdateAccountController implements Controller {
+  private static instance = new UpdateAccountController()
 
   private constructor() {}
 
@@ -29,7 +29,7 @@ export class UpdatePersonController implements Controller {
      } = query
 
     try {
-      const result = await updatePerson.run({
+      const result = await updateAccount.run({
         id,
         balance,
       })
